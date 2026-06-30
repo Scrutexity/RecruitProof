@@ -123,7 +123,7 @@ def _build_concerns(cand: Dict) -> str:
     if score < 0.5:
         parts.append("Overall fit below threshold - manual review recommended")
 
-    # Flag signal variance: any individual signal >30pp below the overall score
+    # Flag signal variance: any individual signal >30pp below the mean of others
     signals = cand.get("signals", {})
     if signals:
         signal_vals = {}
@@ -132,12 +132,14 @@ def _build_concerns(cand: Dict) -> str:
             if isinstance(val, (int, float)):
                 signal_vals[key] = min(val, 1.0) if val <= 1 else min(val / 10.0, 1.0)
         if signal_vals:
-            avg = sum(signal_vals.values()) / len(signal_vals)
             for key, val in signal_vals.items():
-                if avg - val > 0.30:
-                    label = SIGNAL_LABELS.get(key, key)
-                    parts.append("%s significantly below average (%d%% vs %d%%)" % (
-                        label, int(val * 100), int(avg * 100)))
+                others = [v for k, v in signal_vals.items() if k != key]
+                if others:
+                    other_avg = sum(others) / len(others)
+                    if other_avg - val > 0.30:
+                        label = SIGNAL_LABELS.get(key, key)
+                        parts.append("%s significantly below average (%d%% vs %d%%)" % (
+                            label, int(val * 100), int(other_avg * 100)))
 
     return " | ".join(parts) if parts else ""
 
