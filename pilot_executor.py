@@ -60,15 +60,14 @@ class AuditLog:
             lines = self.path.read_text().strip().split("\n")
             if lines and lines[-1].strip():
                 try:
-                    self.prev_hash = lines[-1].split("|")[2].strip()
+                    self.prev_hash = lines[-1].split("|")[1].strip()
                 except (IndexError, ValueError):
                     self.prev_hash = None
 
     def write(self, msg: str) -> str:
-        ts = time.strftime("%Y-%m-%d %H:%M:%S")
         chain_input = (self.prev_hash or self.GENESIS_SEED) + msg
         chain_hash = hashlib.sha256(chain_input.encode()).hexdigest()[:16]
-        entry = "[{}] {} | {}".format(ts, msg, chain_hash)
+        entry = "{} | {}".format(msg, chain_hash)
         with open(self.path, "a") as f:
             f.write(entry + "\n")
         self.prev_hash = chain_hash
@@ -92,12 +91,12 @@ class AuditLog:
             line = line.strip()
             if not line:
                 continue
-            parts = line.split("|")
-            if len(parts) < 3:
-                results.append((i, "CORRUPT", "Expected 3 pipe-delimited parts, got {}".format(len(parts))))
+            parts = line.rsplit("|", 1)
+            if len(parts) < 2:
+                results.append((i, "CORRUPT", "Expected msg | hash format"))
                 continue
-            msg = parts[1].strip()
-            claimed_hash = parts[2].strip()
+            msg = parts[0].strip()
+            claimed_hash = parts[1].strip()
             chain_input = expected_hash + msg
             computed = hashlib.sha256(chain_input.encode()).hexdigest()[:16]
             if computed == claimed_hash:
@@ -142,7 +141,7 @@ def run_pilot(input_zip: Path, jd_file: Path, output_dir: Path, auto_delete: boo
 
     def log(msg):
         entry = audit.write(msg)
-        print(entry)
+        print("[{}] {}".format(time.strftime("%Y-%m-%d %H:%M:%S"), entry))
 
     try:
         # ── Step 1: Ingest ─────────────────────────────────────────
