@@ -1,0 +1,29 @@
+Senior Backend Engineer, Payments
+
+Location: Remote (US)
+About the role:
+We're building the next generation of payment infrastructure processing billions of dollars per year. You'll work on distributed systems in Go and PostgreSQL, focusing on idempotency, fraud detection, and global money movement.
+
+What you'll do:
+- Design and operate high-throughput payments APIs in Go
+- Own Postgres schema design and query optimization
+- Build idempotent, exactly-once workflows on top of Kafka
+- Partner with security on fraud detection models
+- Participate in on-call rotation for tier-1 payments infrastructure
+
+Requirements:
+- 7+ years of professional backend engineering experience
+- Strong Go or equivalent systems language experience
+- Deep PostgreSQL experience (schema design, query tuning, partitioning)
+- Distributed systems fundamentals (idempotency, consensus, retries)
+- Kubernetes and AWS experience
+- GraphQL or REST API design
+
+Nice to have:
+- Payments or fintech domain experience
+- Kafka or equivalent streaming platform
+- Experience with PCI compliance
+- Open source contributions
+- Previous founding engineer experience
+
+We offer visa sponsorship for exceptional candidates.

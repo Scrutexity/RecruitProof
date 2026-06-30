@@ -1,0 +1,18 @@
+Senior Frontend Engineer, Design Systems
+
+Location: Remote (US)
+
+About the role:
+Lead the design systems team building the components that power our documentation and dashboard. Deep React + TypeScript expertise required.
+
+Requirements:
+- 7+ years of frontend engineering
+- Strong React and TypeScript
+- Next.js App Router experience
+- Tailwind CSS and Radix UI
+- Accessibility expertise
+
+Nice to have:
+- Figma plugin development
+- Open source design system contributions
+- Animation libraries (Framer Motion)

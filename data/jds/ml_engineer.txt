@@ -1,0 +1,18 @@
+Senior Machine Learning Engineer
+
+Location: Remote (Global)
+
+About the role:
+We're building production LLM systems serving millions of queries per day. You'll work on RAG pipelines, vector search, and model fine-tuning.
+
+Requirements:
+- 5+ years of ML engineering experience
+- Strong Python and PyTorch
+- Production experience with LLMs and RAG
+- Vector databases (Pinecone, Weaviate, or similar)
+- MLOps with Kubeflow or MLflow
+
+Nice to have:
+- Research publications
+- Computer vision experience
+- Distributed training experience

@@ -1,0 +1,21 @@
+# Million-Candidate Search Engine — requirements.txt
+# Tested with Python 3.12. CPU-only by default; GPU optional.
+#
+# Install:  pip install -r requirements.txt
+# (For GPU FAISS, replace faiss-cpu with faiss-gpu and torch with the CUDA wheel.)
+
+# ---- Vector search ----
+faiss-cpu>=1.9.0          # Facebook AI Similarity Search — sub-5ms search on 1M vectors
+numpy>=1.26,<2.2          # Vector math
+rank-bm25>=0.2.2          # BM25 sparse retrieval for hybrid (dense+sparse) fusion
+
+# ---- Embeddings ----
+sentence-transformers>=3.0.0   # BAAI/bge-base-en-v1.5, all-MiniLM-L6-v2
+                             # (pulls torch as a transitive dep)
+
+# ---- CLI / data ----
+tqdm>=4.66                   # progress bars for the precompute step
+orjson>=3.10                 # fast JSONL parsing
+
+# ---- Optional: LLM reasoning layer (only used if OPENAI_API_KEY is set) ----
+openai>=1.40                 # 1-sentence reasoning for the #1 candidate
