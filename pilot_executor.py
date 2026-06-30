@@ -234,6 +234,14 @@ def run_pilot(input_zip: Path, jd_file: Path, output_dir: Path, auto_delete: boo
         log("✅ Pilot completed successfully.")
         audit.write("PILOT COMPLETE | auto_delete={} | output_dir={}".format(
             auto_delete, output_dir))
+
+        # Self-verify: prove the hash chain is intact right after writing
+        chain_results = audit.verify()
+        tampered = sum(1 for _, s, _ in chain_results if s == "TAMPERED")
+        if tampered:
+            log("⚠️  Audit log hash chain has {} tampered entries — investigate".format(tampered))
+        else:
+            log("  ✓ Audit log hash chain verified ({} entries intact)".format(len(chain_results)))
         return pdf_path, receipt_path
 
     except subprocess.CalledProcessError as e:
