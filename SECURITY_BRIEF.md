@@ -26,7 +26,7 @@ layer, not an ATS replacement. Encore remains your system of record.
 - **Read-only ATS connectors.** We never write to Encore, Workday, Greenhouse, or Lever.
 - **Local-first.** Your candidate data never leaves your network. No outbound
   traffic during search, ingestion, or indexing.
-- **Encrypted.** AES-256-GCM at rest, TLS 1.3 in transit, customer-managed keys.
+- **Encrypted backups.** Fernet (AES-128-CBC + HMAC-SHA256) for backup encryption, TLS 1.3 in transit. Candidate data at rest relies on disk-level encryption (LUKS/EBS) — see [SECURITY.md](SECURITY.md) for the full breakdown.
 - **Auditable.** Every search, view, export, and config change is logged with
   user, timestamp, IP. Logs are hash-chained and tamper-evident.
 - **Open-source.** Every line of code that touches candidate data is auditable
@@ -39,7 +39,7 @@ layer, not an ATS replacement. Encore remains your system of record.
 ## Pilot-specific guarantees (Option A)
 
 - Your data is processed locally (Docker container on my machine, or your machine via Option B)
-- Files are deleted within 24 hours of delivery, deletion certificate provided
+- Files are deleted within 24 hours of delivery, deletion receipt provided
 - We never train models on your data
 - We never share your data with any third party
 - We never use your data for any purpose other than generating your shortlist

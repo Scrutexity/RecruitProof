@@ -22,7 +22,7 @@ plus 3 real job descriptions. We return a shortlist and ROI report in 24 hours.
 | Million-CV Proof Report | PDF, 4 pages | 24 hours |
 | 3 candidate shortlists (100 each) | CSV + PDF | 24 hours |
 | ROI snapshot | 1 page | 24 hours |
-| Raw file deletion certificate | PDF | 24 hours |
+| Raw file deletion receipt | PDF | 24 hours |
 
 ---
 
@@ -66,7 +66,7 @@ See [BUSINESS.md](BUSINESS.md) for the full TCO analysis.
 
 **Your choice:**
 
-- **Option A** — I run the scan locally on my machine. You send a Dropbox/Drive link. Files deleted within 24 hrs, deletion certificate provided.
+- **Option A** — I run the scan locally on my machine. You send a Dropbox/Drive link. Files deleted within 24 hrs, deletion receipt provided.
 - **Option B (most private)** — I ship a Docker image. You run it on your machine. I never see your data.
 
 ---
@@ -92,4 +92,4 @@ If it doesn't prove value, you keep the report and we delete your data. No follo
 ---
 
 *RecruitProof is the open-source core of the Scrutexity platform. MIT licensed.
-Enterprise support available. Your data, your infrastructure, your future.*
+Direct founder access available. Your data, your infrastructure, your future.*

@@ -215,7 +215,7 @@ surfaced from his Encore archive that his team had NOT previously shortlisted.
 
 ═══════════════════════════════════════════════════════════════════════════════
   Raw files deleted: 500,000 / 500,000 (100%)
-  Deletion certificate: DEL-2026-0716-001
+  Deletion receipt: RCPT-2026-0716-001
   This report contains no PII beyond candidate names (already in your Encore).
 ═══════════════════════════════════════════════════════════════════════════════
 ```
@@ -234,7 +234,7 @@ recruitproof_pilot_deliverable.zip
 ├── recruiter_review_panel.csv        ← 3-recruiter ratings for each candidate
 ├── proof_run_001_report.pdf          ← the full Million-CV Proof Report
 ├── roi_snapshot.pdf                  ← 1-page ROI calculation
-└── deletion_certificate.pdf          ← proof that raw files were deleted
+└── deletion_receipt.pdf          ← proof that raw files were deleted
 ```
 
 This is what Rudy holds in his hand. Every candidate is real (from his Encore

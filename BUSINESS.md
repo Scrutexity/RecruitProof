@@ -26,7 +26,7 @@ local-first alternative.
 | AI Screening Add-on | $45,000 |
 | Resume Search / Sourcing Tool | $24,000 |
 | Professional Services | $18,000 |
-| Premium Support | $12,000 |
+| Direct founder access | $12,000 |
 | **Total** | **$171,000** |
 
 ### RecruitProof (Annual)
@@ -34,7 +34,7 @@ local-first alternative.
 | Line item | Cost |
 |---|---|
 | Cloud VM (AWS t3.2xlarge or equivalent) | $6,000 |
-| Enterprise Support (24×7, SLA) | $12,000 |
+| Direct founder access (email + Slack) | $12,000 |
 | Annual License | $18,000 |
 | Backup Storage (1 TB) | $1,200 |
 | **Total** | **$37,200** |

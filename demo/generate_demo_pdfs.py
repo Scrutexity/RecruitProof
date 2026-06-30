@@ -5,7 +5,7 @@ generate_demo_pdfs.py — Demo Asset Generator
 Generates the 3 demo PDFs that PILOT.md promises:
   1. sample_shortlist.pdf      — a sample top-100 shortlist (the killer artifact)
   2. sample_roi_report.pdf     — the 1-page ROI snapshot
-  3. sample_deletion_certificate.pdf — proof of data deletion
+  3. sample_deletion_receipt.pdf — proof of data deletion
 
 Run once to populate the demo/ folder with assets Rudy can hold in his hand.
 
@@ -201,7 +201,7 @@ def _make_roi_pdf(out_path: str):
 
 
 def _make_deletion_pdf(out_path: str):
-    """Generate the sample deletion certificate PDF."""
+    """Generate the sample deletion receipt PDF."""
     from reportlab.lib.pagesizes import letter
     from reportlab.lib.units import inch
     from reportlab.lib import colors
@@ -217,12 +217,12 @@ def _make_deletion_pdf(out_path: str):
                             leftMargin=1 * inch, rightMargin=1 * inch)
     story = []
     story.append(Paragraph("RecruitProof", styles["Center"]))
-    story.append(Paragraph("Deletion Certificate", styles["Center"]))
+    story.append(Paragraph("Deletion Receipt", styles["Center"]))
     story.append(Paragraph("<b><font color='#9333ea'>SAMPLE — SYNTHETIC, FOR DEMONSTRATION ONLY</font></b>", styles["Center"]))
     story.append(Spacer(1, 24))
 
-    cert_id = f"DEL-{time.strftime('%Y%m%d', time.gmtime())}-001"
-    story.append(Paragraph(f"<b>Certificate ID:</b> {cert_id}", styles["Center"]))
+    cert_id = f"RCPT-{time.strftime('%Y%m%d', time.gmtime())}-001"
+    story.append(Paragraph(f"<b>Receipt ID:</b> {cert_id}", styles["Center"]))
     story.append(Paragraph(f"<b>Customer:</b> [Pilot Customer]", styles["Center"]))
     story.append(Paragraph(f"<b>Run ID:</b> proof_run_001", styles["Center"]))
     story.append(Paragraph(f"<b>Timestamp:</b> {time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())}",
@@ -237,7 +237,7 @@ def _make_deletion_pdf(out_path: str):
     story.append(Spacer(1, 12))
     story.append(Paragraph(
         "Each file was SHA-256 hashed before deletion. The full hash manifest is "
-        "preserved in the accompanying JSON certificate.",
+        "preserved in the accompanying JSON receipt.",
         styles["Body"]))
     story.append(Spacer(1, 12))
     story.append(Paragraph(
@@ -271,7 +271,7 @@ def main():
     roi = _make_roi_pdf(str(out_dir / "sample_roi_report.pdf"))
     print(f"[demo] ✓ {roi}", file=sys.stderr)
 
-    deletion = _make_deletion_pdf(str(out_dir / "sample_deletion_certificate.pdf"))
+    deletion = _make_deletion_pdf(str(out_dir / "sample_deletion_receipt.pdf"))
     print(f"[demo] ✓ {deletion}", file=sys.stderr)
 
     print(f"\n[demo] DONE — 3 PDFs in {out_dir}/", file=sys.stderr)

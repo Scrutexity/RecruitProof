@@ -167,7 +167,7 @@ See [PERFORMANCE.md](PERFORMANCE.md) for the full benchmark report.
 
 See [SECURITY.md](SECURITY.md).
 
-- AES-256-GCM at rest
+- Fernet (AES-128-CBC + HMAC-SHA256) at rest
 - TLS 1.3 in transit
 - RBAC (5 roles)
 - Hash-chained audit logs

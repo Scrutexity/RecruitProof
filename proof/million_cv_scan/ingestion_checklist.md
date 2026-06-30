@@ -34,7 +34,7 @@ Pre-flight checklist before running the million-CV proof scan.
 - [ ] Review hidden_candidates.csv — confirm at least 1 hidden candidate per JD
 - [ ] Send shortlists + ROI snapshot + proof report to customer
 - [ ] Start 24-hour deletion timer
-- [ ] Generate deletion certificate (DEL-YYYY-MMDD-NNN)
+- [ ] Generate deletion receipt (RCPT-YYYY-MMDD-NNN)
 
 ## Customer sign-off
 

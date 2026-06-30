@@ -118,4 +118,4 @@ docker-compose up -d
 ## Need help?
 
 Email: support@scrutexity.com
-SLA: 24×7 for enterprise customers, 4-hour response.
+SLA: Direct founder access via email + Slack. Response within 1 business day for enterprise customers.

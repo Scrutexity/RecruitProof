@@ -226,9 +226,9 @@ def _build_pdf(meta: Dict, out_path: str, customer: str = "[Customer Name]") -> 
     else:
         story.append(Paragraph("(no search results found in run directory)", styles["Metric"]))
 
-    # ---- Deletion certificate (placeholder)
+    # ---- Deletion receipt (placeholder)
     story.append(Spacer(1, 18))
-    story.append(Paragraph("4. Deletion Certificate", styles["SectionH"]))
+    story.append(Paragraph("4. Deletion Receipt", styles["SectionH"]))
     story.append(Paragraph(
         f"All raw resume files ({files_received:,}) were deleted from RecruitProof "
         f"infrastructure within 24 hours of delivery. Only the shortlists, ROI report, "
@@ -236,7 +236,7 @@ def _build_pdf(meta: Dict, out_path: str, customer: str = "[Customer Name]") -> 
         styles["Metric"]))
     story.append(Paragraph(
         f"<b>Deletion timestamp:</b> {time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())}<br/>"
-        f"<b>Certificate ID:</b> DEL-{time.strftime('%Y%m%d', time.gmtime())}-001<br/>"
+        f"<b>Receipt ID:</b> RCPT-{time.strftime('%Y%m%d', time.gmtime())}-001<br/>"
         f"<b>Verified by:</b> Scrutexity DevOps",
         styles["Metric"]))
 

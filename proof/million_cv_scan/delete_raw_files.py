@@ -1,10 +1,10 @@
 """
-delete_raw_files.py — Raw File Deletion + Certificate Generator
+delete_raw_files.py — Raw File Deletion + Receipt Generator
 ================================================================
 
 Deletes all raw resume files (PDF/DOCX) from a proof run after the shortlists
 and proof report have been generated. Produces a tamper-evident deletion
-certificate (PDF + JSON manifest) that can be shared with the customer as
+receipt (PDF + JSON manifest) that can be shared with the customer as
 proof of compliance.
 
 Usage:
@@ -95,11 +95,11 @@ def delete_files(files: List[Path], confirm: bool, audit_log: List[Dict]) -> Dic
     return summary
 
 
-def write_certificate(summary: Dict, run_dir: Path, customer: str) -> Path:
-    """Write a JSON + PDF deletion certificate."""
-    cert_id = f"DEL-{time.strftime('%Y%m%d', time.gmtime())}-{int(time.time()) % 1000:03d}"
-    cert_data = {
-        "certificate_id": cert_id,
+def write_receipt(summary: Dict, run_dir: Path, customer: str) -> Path:
+    """Write a JSON + PDF deletion receipt."""
+    receipt_id = f"RCPT-{time.strftime('%Y%m%d', time.gmtime())}-{int(time.time()) % 1000:03d}"
+    receipt_data = {
+        "receipt_id": receipt_id,
         "customer": customer,
         "run_id": run_dir.name,
         "timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
@@ -110,10 +110,10 @@ def write_certificate(summary: Dict, run_dir: Path, customer: str) -> Path:
         "verification_method": "SHA-256 hash chain (each file hashed before deletion)",
     }
     # JSON manifest
-    json_path = run_dir / "deletion_certificate.json"
+    json_path = run_dir / "deletion_receipt.json"
     with open(json_path, "w") as f:
-        json.dump(cert_data, f, indent=2)
-    # PDF certificate
+        json.dump(receipt_data, f, indent=2)
+    # PDF receipt
     try:
         from reportlab.lib.pagesizes import letter
         from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
@@ -122,7 +122,7 @@ def write_certificate(summary: Dict, run_dir: Path, customer: str) -> Path:
         from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
         from reportlab.lib.enums import TA_CENTER
 
-        pdf_path = run_dir / "deletion_certificate.pdf"
+        pdf_path = run_dir / "deletion_receipt.pdf"
         doc = SimpleDocTemplate(str(pdf_path), pagesize=letter,
                                 topMargin=0.75 * inch, bottomMargin=0.75 * inch,
                                 leftMargin=0.75 * inch, rightMargin=0.75 * inch)
@@ -133,11 +133,11 @@ def write_certificate(summary: Dict, run_dir: Path, customer: str) -> Path:
         styles.add(ParagraphStyle(name="CertBody", parent=styles["Normal"],
                                   fontSize=11, spaceAfter=6))
         story = [
-            Paragraph("RecruitProof Deletion Certificate", styles["CertTitle"]),
-            Paragraph(f"<b>Certificate ID:</b> {cert_id}", styles["CertBody"]),
+            Paragraph("RecruitProof Deletion Receipt", styles["CertTitle"]),
+            Paragraph(f"<b>Receipt ID:</b> {receipt_id}", styles["CertBody"]),
             Paragraph(f"<b>Customer:</b> {customer}", styles["CertBody"]),
             Paragraph(f"<b>Run ID:</b> {run_dir.name}", styles["CertBody"]),
-            Paragraph(f"<b>Timestamp:</b> {cert_data['timestamp']}", styles["CertBody"]),
+            Paragraph(f"<b>Timestamp:</b> {receipt_data['timestamp']}", styles["CertBody"]),
             Spacer(1, 18),
             Paragraph(f"This certifies that <b>{summary['deleted']:,}</b> raw resume files "
                       f"(<b>{summary['total_bytes_freed'] / (1024*1024):.1f} MB</b>) were "
@@ -145,7 +145,7 @@ def write_certificate(summary: Dict, run_dir: Path, customer: str) -> Path:
                       styles["CertBody"]),
             Spacer(1, 12),
             Paragraph("Each file was SHA-256 hashed before deletion. The full hash manifest "
-                      "is preserved in the accompanying JSON certificate.",
+                      "is preserved in the accompanying JSON receipt.",
                       styles["CertBody"]),
             Spacer(1, 24),
             Paragraph("<b>Verified by:</b> Scrutexity DevOps", styles["CertBody"]),
@@ -157,15 +157,15 @@ def write_certificate(summary: Dict, run_dir: Path, customer: str) -> Path:
         doc.build(story)
         return pdf_path
     except ImportError:
-        print("[delete] WARN: reportlab not installed, skipping PDF certificate", file=sys.stderr)
+        print("[delete] WARN: reportlab not installed, skipping PDF receipt", file=sys.stderr)
         return json_path
 
 
 def main():
-    ap = argparse.ArgumentParser(description="RecruitProof — raw file deletion + certificate generator")
+    ap = argparse.ArgumentParser(description="RecruitProof — raw file deletion + receipt generator")
     ap.add_argument("--run", required=True, help="Path to the proof run directory")
     ap.add_argument("--confirm", action="store_true", help="Actually delete files (default: dry run)")
-    ap.add_argument("--customer", default="[Customer Name]", help="Customer name for the certificate")
+    ap.add_argument("--customer", default="[Customer Name]", help="Customer name for the receipt")
     args = ap.parse_args()
 
     run_dir = Path(args.run)
@@ -193,8 +193,8 @@ def main():
     if summary["failed"]:
         print(f"[delete] WARN: {summary['failed']} files could not be deleted", file=sys.stderr)
 
-    cert_path = write_certificate(summary, run_dir, args.customer)
-    print(f"[delete] certificate → {cert_path}", file=sys.stderr)
+    receipt_path = write_receipt(summary, run_dir, args.customer)
+    print(f"[delete] receipt → {receipt_path}", file=sys.stderr)
 
     # Append audit log entries to the run's audit log
     audit_path = run_dir / "audit_log.jsonl"

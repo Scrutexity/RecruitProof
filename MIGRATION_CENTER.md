@@ -75,7 +75,7 @@ read-only connectors, preview-before-import, and one-click rollback.
 - Import verification (every record checksum-verified)
 
 **Time:** 1 hour (for 500K resumes)
-**Output:** Completion certificate
+**Output:** Completion report
 
 ---
 
@@ -87,7 +87,7 @@ read-only connectors, preview-before-import, and one-click rollback.
 - Zero downtime — Encore stays live as fallback
 
 **Time:** 15 minutes (cutover) + 30 days (parallel mode)
-**Output:** Go-live certificate + 30-day parallel-mode report
+**Output:** Go-live report + 30-day parallel-mode report
 
 ---
 
@@ -137,12 +137,12 @@ Rollback takes **less than 5 minutes** regardless of database size.
 
 ---
 
-## Completion certificate
+## Completion report
 
-After Phase 5, RecruitProof generates a signed completion certificate:
+After Phase 5, RecruitProof generates a self-issued completion report:
 
 ```
-RecruitProof Migration Completion Certificate
+RecruitProof Migration Completion Report
 ==============================================
 Customer:        [Your Company]
 Source ATS:      Encore
@@ -158,7 +158,7 @@ Signed: RecruitProof Migration Engine v0.3.0
 Verified by: [Your CTO / IT Lead]
 ```
 
-This certificate is auditable and satisfies most enterprise compliance
+This report is auditable and satisfies most enterprise compliance
 requirements (SOC2, ISO 27001 change-management controls).
 
 ---

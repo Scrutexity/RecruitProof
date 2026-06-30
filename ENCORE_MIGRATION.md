@@ -22,7 +22,7 @@ search intelligence layer. Cutover happens only when your team is ready.
 2. Build a hybrid FAISS + BM25 index
 3. Run 3 searches, generate shortlists
 4. Generate the Million-CV Proof Report
-5. Delete your raw files (deletion certificate provided)
+5. Delete your raw files (deletion receipt provided)
 
 **Encore impact:** Zero. Encore is not touched.
 
@@ -89,7 +89,7 @@ fallback.
 
 **What we do:**
 1. Generate the cutover checklist
-2. Send the go-live certificate
+2. Send the go-live report
 3. Schedule the 30-day post-cutover review
 
 **Encore impact:** Zero — Encore stays live.
@@ -108,7 +108,7 @@ fallback.
 3. Save the Encore backup in cold storage for compliance
 
 **What we do:**
-1. Generate the decommission certificate
+1. Generate the decommission report
 2. Confirm RecruitProof is the system of record
 
 **Encore impact:** Encore is turned off.

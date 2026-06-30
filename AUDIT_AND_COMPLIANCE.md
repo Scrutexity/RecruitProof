@@ -63,7 +63,7 @@ entry) and signed daily. Logs cannot be modified without detection.
   - Security (encryption, RBAC, audit logging)
   - Availability (99.9% uptime SLA for hosted; for self-hosted, customer SLA)
   - Processing integrity (every search reproducible from query + index)
-  - Confidentiality (AES-256 at rest, TLS 1.3 in transit)
+  - Confidentiality (Fernet-encrypted backups, TLS 1.3 in transit, disk-level encryption recommended for data at rest)
   - Privacy (no data sharing, GDPR/CCPA compliant)
 
 ### ISO 27001

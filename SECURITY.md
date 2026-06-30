@@ -23,13 +23,28 @@ sensitive asset in the company. Our threat model assumes:
 
 ## Encryption
 
+**What's encrypted today:**
+
 | Layer | Algorithm | Key management |
 |---|---|---|
-| At rest (candidate data) | AES-256-GCM | Customer-managed KMS / Vault |
-| At rest (FAISS index) | AES-256-GCM | Same as candidate data |
+| Backups | Fernet (AES-128-CBC + HMAC-SHA256) | Customer-managed key via `BACKUP_ENCRYPTION_KEY` env var |
 | In transit (API) | TLS 1.3 | Let's Encrypt / corporate PKI |
 | In transit (internal) | mTLS | Self-signed CA (Docker network) |
-| Backups | AES-256-GCM | Separate KMS key per backup |
+
+**What's NOT encrypted today (honest disclosure):**
+
+| Layer | Current state | Roadmap |
+|---|---|---|
+| Candidate data at rest | Stored as plain JSONL files on disk | Disk-level encryption (LUKS / EBS encryption) recommended for production |
+| FAISS index at rest | Stored as plain binary files on disk | Same — disk-level encryption |
+| BM25 index at rest | Stored as plain JSON files on disk | Same — disk-level encryption |
+
+**Why this is acceptable for the pilot:** RecruitProof runs locally on your
+machine (Option B) or on a single VM under your control (Option A). Disk-level
+encryption (LUKS on Linux, EBS encryption on AWS, FileVault on macOS) protects
+data at rest at the OS level — RecruitProof doesn't need to reinvent this.
+For production multi-tenant deployments, application-level encryption of
+candidate data at rest is on the roadmap.
 
 ## Authentication & RBAC
 

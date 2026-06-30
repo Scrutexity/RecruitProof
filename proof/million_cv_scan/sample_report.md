@@ -165,7 +165,7 @@ which trades 2-3% recall for ~10× faster search.*
 
 ---
 
-## 8. Deletion certificate
+## 8. Deletion receipt
 
 All raw resume files (500,000 PDF/DOCX) were deleted from RecruitProof
 infrastructure at 2026-07-16 09:00 UTC, 24 hours after delivery of this report.
@@ -178,7 +178,7 @@ infrastructure at 2026-07-16 09:00 UTC, 24 hours after delivery of this report.
 - `proof_run_001_report.pdf` (this report)
 
 **Deletion verified by:** Scrutexity DevOps
-**Deletion certificate ID:** DEL-2026-0716-001
+**Deletion receipt ID:** RCPT-2026-0716-001
 **Customer may request an attestation letter** — signed, on Scrutexity letterhead.
 
 ---
