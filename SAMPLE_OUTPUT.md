@@ -165,3 +165,78 @@ The Executive Dashboard shows:
 - Recruiter hours saved this quarter: 1,247
 
 That's what makes the CEO approve a pilot.
+
+---
+
+### The "50 Hidden Candidates" deliverable
+
+When you send Rudy the pilot deliverable, this is what he receives — a
+one-page PDF (or CSV) listing the 50 highest-fit candidates that RecruitProof
+surfaced from his Encore archive that his team had NOT previously shortlisted.
+
+```
+═══════════════════════════════════════════════════════════════════════════════
+  RecruitProof — 50 Hidden Candidates
+  Customer: [Pilot Customer]  ·  Run: proof_run_001  ·  2026-07-15
+  Source: 500,000 Encore-exported resumes  ·  Search: Senior Backend Engineer, Payments
+═══════════════════════════════════════════════════════════════════════════════
+
+  #    Name                  Title                          Company       Score  Status
+  ───  ────────────────────  ─────────────────────────────  ────────────  ─────  ──────────────
+   1   Maya Chen             Senior Backend Engineer        Stripe         9.2   NEW
+   2   Daniel Okonkwo        Backend Engineer               Plaid          8.7   NEW
+   3   Priya Nair            Staff Backend Engineer         Square         8.4   NEW
+   4   Lukas Müller          Senior Backend Engineer        Coinbase       7.9   NEW
+   5   Sofia Vargas          Backend Engineer               Plaid          7.7   NEW
+   6   Jamal Fernández       Senior Backend Engineer        Planetscale    7.5   NEW
+   7   Aiko Tanaka           Backend Engineer               Vercel         7.3   NEW
+   8   Henrik Andersen       Senior Backend Engineer        Datadog        7.1   NEW
+   9   Ananya Reddy          Staff Engineer                 Anthropic      6.9   NEW
+  10   Diego Fernández       Backend Engineer               Twilio         6.7   NEW
+  ...
+  47   Lena Souza            Senior Backend Engineer        Netflix        6.1   NEW
+
+═══════════════════════════════════════════════════════════════════════════════
+  SUMMARY
+═══════════════════════════════════════════════════════════════════════════════
+
+  • 50 candidates surfaced that were NOT in your active Encore shortlists
+  • 12 of 50 rated ≥ 4/5 by all 3 senior recruiters on your review panel
+  • Top candidate (Maya Chen, 9.2/10) is a warm lead — previously applied
+    to your company 14 months ago
+  • 8 of 50 candidates have payments-domain experience (Stripe, Plaid,
+    Coinbase, Square) — directly relevant to the role
+  • Average search time across 3 JDs: 2.8 seconds (warm: 92ms p50)
+
+  NEXT STEPS:
+  1. Review the 12 recruiter-approved candidates (see hidden_candidates.csv)
+  2. Approve outreach for the top 5 (drafts included in the deliverable ZIP)
+  3. Schedule follow-up call to discuss Phase 2 (production deployment)
+
+═══════════════════════════════════════════════════════════════════════════════
+  Raw files deleted: 500,000 / 500,000 (100%)
+  Deletion certificate: DEL-2026-0716-001
+  This report contains no PII beyond candidate names (already in your Encore).
+═══════════════════════════════════════════════════════════════════════════════
+```
+
+**Deliverable ZIP contents:**
+
+```
+recruitproof_pilot_deliverable.zip
+├── 50_hidden_candidates.pdf          ← the one-pager above
+├── 50_hidden_candidates.csv          ← spreadsheet import (Excel/Sheets)
+├── 50_hidden_candidates.json         ← API integration
+├── outreach_drafts/
+│   ├── 01_maya_chen.txt
+│   ├── 02_daniel_okonkwo.txt
+│   └── ... (top 5 only — personalized AI-drafted emails)
+├── recruiter_review_panel.csv        ← 3-recruiter ratings for each candidate
+├── proof_run_001_report.pdf          ← the full Million-CV Proof Report
+├── roi_snapshot.pdf                  ← 1-page ROI calculation
+└── deletion_certificate.pdf          ← proof that raw files were deleted
+```
+
+This is what Rudy holds in his hand. Every candidate is real (from his Encore
+export). Every score is explainable. Every "NEW" status means his team hadn't
+previously found this person. That's the pilot deliverable.

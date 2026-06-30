@@ -5,47 +5,59 @@
 # Requirements: Python 3.10+, pip, docker, docker-compose (for container tasks)
 
 .PHONY: help install dev build-index search benchmark test lint format typecheck \
-        docker-build docker-run docker-stop docker-logs docker-shell \
-        demo-data demo-pdfs clean backup restore
+	docker-build docker-run docker-stop docker-logs docker-shell \
+	demo-data demo-pdfs dashboard clean backup restore
 
 PYTHON ?= python
 PORT   ?= 8000
 
 help:  ## Show this help message
-	@echo "RecruitProof — common tasks"
+	@echo "┌─────────────────────────────────────────────────────────────────┐"
+	@echo "│  RecruitProof — One-Command Operations                         │"
+	@echo "│  Open-source enterprise candidate intelligence                 │"
+	@echo "└─────────────────────────────────────────────────────────────────┘"
 	@echo ""
-	@echo "Setup:"
-	@echo "  make install        Install Python dependencies"
-	@echo "  make demo-data      Generate 10,000 synthetic resumes + build hybrid index"
+	@echo "  START HERE (3 commands, ~5 minutes):"
 	@echo ""
-	@echo "Run:"
-	@echo "  make dev            Start FastAPI dev server with hot reload (port $(PORT))"
-	@echo "  make build-index    Build FAISS + BM25 hybrid index from data/candidates.jsonl"
-	@echo "  make search         Run a sample search against the built index"
-	@echo "  make benchmark      Run 20-iteration benchmark, report p50/p95"
+	@echo "    make install        Install Python dependencies"
+	@echo "    make demo-data      Generate 10,000 synthetic resumes + build the index"
+	@echo "    make dev            Start the API server at http://localhost:8000"
 	@echo ""
-	@echo "Quality:"
-	@echo "  make test           Run pytest test suite"
-	@echo "  make lint           Run flake8 + black --check + isort --check"
-	@echo "  make format         Auto-format with black + isort"
-	@echo "  make typecheck      Run mypy on core modules"
+	@echo "  ─────────────────────────────────────────────────────────────────"
 	@echo ""
-	@echo "Docker:"
-	@echo "  make docker-build   Build the production Docker image"
-	@echo "  make docker-run     Run via docker-compose (detached)"
-	@echo "  make docker-stop    Stop the running containers"
-	@echo "  make docker-logs    Tail container logs"
-	@echo "  make docker-shell   Open a shell inside the running container"
+	@echo "  VISUAL DEMO:"
+	@echo "    make dashboard      Launch the Next.js enterprise demo dashboard"
+	@echo "    make demo-pdfs      Generate the 3 sample PDFs (shortlist, ROI, deletion cert)"
 	@echo ""
-	@echo "Demo assets:"
-	@echo "  make demo-pdfs      Generate the 3 demo PDFs (shortlist, ROI, deletion cert)"
+	@echo "  SEARCH & BENCHMARK:"
+	@echo "    make search         Run a sample search against the built index"
+	@echo "    make benchmark      Run 20-iteration p50/p95 latency benchmark"
+	@echo "    make build-index    Rebuild the FAISS + BM25 hybrid index"
 	@echo ""
-	@echo "Backup:"
-	@echo "  make backup         Create an encrypted timestamped backup of /data"
-	@echo "  make restore        Restore from the latest backup (interactive)"
+	@echo "  QUALITY (for developers):"
+	@echo "    make test           Run the pytest test suite"
+	@echo "    make lint           Check code style (flake8 + black + isort)"
+	@echo "    make format         Auto-format the code"
+	@echo "    make typecheck      Run mypy type checking"
 	@echo ""
-	@echo "Cleanup:"
-	@echo "  make clean          Remove caches, pycache, build artifacts"
+	@echo "  DOCKER (production deployment):"
+	@echo "    make docker-build   Build the production Docker image"
+	@echo "    make docker-run     Run via docker-compose (detached, port 8000)"
+	@echo "    make docker-stop    Stop the running containers"
+	@echo "    make docker-logs    Tail container logs"
+	@echo "    make docker-shell   Open a shell inside the running container"
+	@echo ""
+	@echo "  BACKUP & RESTORE:"
+	@echo "    make backup         Create an encrypted timestamped backup"
+	@echo "    make restore        Restore from the latest backup (interactive)"
+	@echo ""
+	@echo "  CLEANUP:"
+	@echo "    make clean          Remove caches, pycache, build artifacts"
+	@echo ""
+	@echo "  ─────────────────────────────────────────────────────────────────"
+	@echo "  Docs: README.md (sales) · BUSINESS.md (CFO) · DEPLOYMENT.md (ops)"
+	@echo "  Repo: https://github.com/Scrutexity/RecruitProof"
+	@echo ""
 
 install:  ## Install Python dependencies
 	$(PYTHON) -m pip install --upgrade pip
@@ -58,17 +70,17 @@ dev:  ## Start FastAPI dev server with hot reload
 
 build-index:  ## Build FAISS + BM25 hybrid index from data/candidates.jsonl
 	@if [ ! -f data/candidates.jsonl ]; then \
-		echo "No data/candidates.jsonl found. Run 'make demo-data' first."; exit 1; \
+	        echo "No data/candidates.jsonl found. Run 'make demo-data' first."; exit 1; \
 	fi
 	$(PYTHON) precompute.py --candidates data/candidates.jsonl --output output/ \
-		--model mini --index flat --hybrid
+	        --model mini --index flat --hybrid
 
 search:  ## Run a sample search
 	@if [ ! -f output/candidates.faiss ]; then \
-		echo "No index found. Run 'make build-index' first."; exit 1; \
+	        echo "No index found. Run 'make build-index' first."; exit 1; \
 	fi
 	$(PYTHON) search.py --jd data/sample_jd.txt --top 10 --hybrid \
-		--candidates data/candidates.jsonl
+	        --candidates data/candidates.jsonl
 
 benchmark:  ## Run 20-iteration benchmark
 	$(PYTHON) search.py --jd data/sample_jd.txt --benchmark 20 --candidates data/candidates.jsonl
@@ -112,12 +124,25 @@ docker-shell:  ## Open a shell inside the running container
 demo-data:  ## Generate 10,000 synthetic resumes + build hybrid index
 	$(PYTHON) generate_synthetic_data.py --count 10000 --out data/candidates.jsonl
 	$(PYTHON) precompute.py --candidates data/candidates.jsonl --output output/ \
-		--model mini --index flat --hybrid
+	        --model mini --index flat --hybrid
 	@echo "✓ Demo data ready. Run 'make dev' to start the API server."
 
 demo-pdfs:  ## Generate the 3 demo PDFs (shortlist, ROI, deletion cert)
 	$(PYTHON) demo/generate_demo_pdfs.py --out demo/
 	@echo "✓ Demo PDFs generated in demo/"
+
+dashboard:  ## Launch the Next.js enterprise demo dashboard (recproof/)
+	@echo "Launching RecruitProof Enterprise Demo Dashboard..."
+	@echo ""
+	@echo "  The dashboard runs at http://localhost:3000"
+	@echo "  All numbers are synthetic until you wire it to the real API."
+	@echo "  See recproof/INSTALL.md for setup details."
+	@echo ""
+	@if [ ! -d recproof/node_modules ]; then \
+	        echo "  Installing dashboard dependencies (first run only)..."; \
+	        cd recproof && npm install; \
+	fi
+	@cd recproof && npm run dev
 
 # ---- Backup ----
 
@@ -130,7 +155,7 @@ restore:  ## Restore from the latest backup (interactive)
 	if [ -z "$$LATEST" ]; then echo "No backups found in /data/backups/"; exit 1; fi; \
 	read -p "Restore from $$LATEST? This will OVERWRITE /data. Type YES to confirm: " confirm; \
 	if [ "$$confirm" = "YES" ]; then \
-		$(PYTHON) backup.py --restore "$$LATEST"; \
+	        $(PYTHON) backup.py --restore "$$LATEST"; \
 	else echo "Restore cancelled."; fi
 
 # ---- Cleanup ----

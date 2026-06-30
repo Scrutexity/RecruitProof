@@ -5,8 +5,25 @@
 
 ---
 
+## 🔒 READ-ONLY BY DESIGN
+
+> **RecruitProof never writes to your ATS.**
+>
+> All Encore, Workday, Greenhouse, and Lever connectors are **read-only**.
+> RecruitProof searches your candidate database, surfaces shortlists, and
+> generates reports — but it cannot create, modify, or delete any record in
+> your production ATS. There is no "write" code path. Your recruiting
+> workflow stays untouched.
+
+This is the #1 concern we hear from CISOs: *"Will an AI bot write back to my
+production ATS?"* The answer is no. RecruitProof is a search and intelligence
+layer, not an ATS replacement. Encore remains your system of record.
+
+---
+
 ## RecruitProof security in 60 seconds
 
+- **Read-only ATS connectors.** We never write to Encore, Workday, Greenhouse, or Lever.
 - **Local-first.** Your candidate data never leaves your network. No outbound
   traffic during search, ingestion, or indexing.
 - **Encrypted.** AES-256-GCM at rest, TLS 1.3 in transit, customer-managed keys.
@@ -45,11 +62,12 @@
 
 ## What to ask your CISO
 
-1. *"Can we deploy this on our infrastructure?"* — Yes (Option B).
-2. *"Can our security team audit the code?"* — Yes, MIT-licensed, all on GitHub.
-3. *"Where does our data go?"* — Nowhere, if you choose Option B. Isolated VPC, deleted in 24 hours if Option A.
-4. *"Who has access?"* — Your admins. We don't even have access in Option B.
-5. *"What's your breach history?"* — None. We're new. We've also never had a chance to fail yet, and we've designed the system assuming we will be attacked.
+1. *"Will this write to my ATS?"* — **No. Read-only by design. No write code path exists.**
+2. *"Can we deploy this on our infrastructure?"* — Yes (Option B).
+3. *"Can our security team audit the code?"* — Yes, MIT-licensed, all on GitHub.
+4. *"Where does our data go?"* — Nowhere, if you choose Option B. Isolated VPC, deleted in 24 hours if Option A.
+5. *"Who has access?"* — Your admins. We don't even have access in Option B.
+6. *"What's your breach history?"* — None. We're new. We've also never had a chance to fail yet, and we've designed the system assuming we will be attacked.
 
 ## Contact
 

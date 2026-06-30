@@ -16,8 +16,8 @@ RecruitProof gives you:
 - **Sub-5ms search** across 1M+ profiles
 - **Explainable scores** for every candidate
 - **Local-first deployment** — your data never leaves your network
-- **90% cost savings** vs. enterprise vendors
-- **Read-only ATS connectors** — we never modify your Encore data
+- **Read-only ATS connectors** — we never write to your Encore data
+- **Designed to significantly reduce infrastructure and licensing costs** compared with traditional enterprise ATS deployments. See [BUSINESS.md](BUSINESS.md) for example TCO scenarios.
 
 ---
 
@@ -112,6 +112,28 @@ make docker-run      # run via docker-compose (production-style)
 
 **Requirements:** Python 3.10+, 8 GB RAM, 10 GB disk for the demo dataset.
 For 500K+ resumes: 16 vCPU, 64 GB RAM, 200 GB NVMe (see [PERFORMANCE.md](PERFORMANCE.md)).
+
+---
+
+## Enterprise Demo Dashboard
+
+→ **[View the RecruitProof Enterprise Demo Dashboard](recproof/)** ←
+
+The `recproof/` folder contains a full Next.js enterprise demo shell with 12
+sections: Executive Dashboard, Import Center, Intelligence, Enterprise Search,
+Candidate Intelligence, Executive ROI, Migration Center, Audit Center, Trust
+Center, Million-CV Proof, Demo Storyboard, and Docs.
+
+```bash
+cd recproof/
+npm install
+npm run dev
+# Open http://localhost:3000
+```
+
+See [recproof/INSTALL.md](recproof/INSTALL.md) for setup details. All numbers
+in the dashboard are synthetic until you replace them with your real Encore
+export data.
 
 ---
 
