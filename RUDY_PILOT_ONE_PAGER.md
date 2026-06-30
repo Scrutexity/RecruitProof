@@ -66,8 +66,8 @@ See [BUSINESS.md](BUSINESS.md) for the full TCO analysis.
 
 **Your choice:**
 
-- **Option A** — RecruitProof private cloud (isolated VPC, files deleted in 24 hrs, deletion certificate provided)
-- **Option B** — Your infrastructure (we ship a Docker image, we never see your data)
+- **Option A** — I run the scan locally on my machine. You send a Dropbox/Drive link. Files deleted within 24 hrs, deletion certificate provided.
+- **Option B (most private)** — I ship a Docker image. You run it on your machine. I never see your data.
 
 ---
 

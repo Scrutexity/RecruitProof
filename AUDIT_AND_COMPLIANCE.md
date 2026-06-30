@@ -37,15 +37,16 @@ entry) and signed daily. Logs cannot be modified without detection.
 
 ## Compliance frameworks
 
-### GDPR
+### GDPR (architecture-compatible; formal review not yet completed)
 
 - ✅ Right to access: candidates can request a copy of their data via the
   recruiting team (RecruitProof exposes a `GET /candidates/<id>/export` API)
 - ✅ Right to erasure: candidates can be hard-deleted (not just soft-deleted)
   via `DELETE /candidates/<id>` — index is rebuilt overnight
 - ✅ Data portability: export any candidate to JSON in 1 click
-- ✅ Data Processing Agreement (DPA) available — sign at scrutexity.com/dpa
 - ✅ No cross-border data transfer (local-first)
+- ⚠️ Data Processing Agreement (DPA): not yet drafted. Will be provided before any production deployment.
+- ⚠️ Formal GDPR compliance review: not yet completed. The architecture is designed to be GDPR-compatible, but compliance is a legal determination that requires review by your legal team.
 
 ### CCPA
 

@@ -82,4 +82,4 @@ The pilot is a success if **any one** of these is true:
 3. Search latency is under 5 seconds for your full database
 4. The ROI report shows ≥ 50% cost savings vs. your current stack
 
-In our last 12 pilots, 11 met all four criteria.
+*Note: These are the success criteria for Rudy's pilot. No prior pilots have been run — this will be the first real-world test of the engine on customer data.*

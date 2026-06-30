@@ -90,9 +90,9 @@ We respond within 24 hours and credit responsible disclosure.
 
 | Framework | Status |
 |---|---|
-| GDPR | ✅ Compliant (data portability, right to erasure, DPA available) |
+| GDPR | ✅ Architecture is GDPR-compatible (local-first, data portability, right to erasure). Formal compliance review not yet completed. |
 | CCPA | ✅ Compliant (no data sale, opt-out not required — we don't share) |
-| SOC 2 Type I | 🔄 In progress (audit Q3 2026) |
+| SOC 2 Type I | 🔄 Planned (audit firm not yet engaged) |
 | SOC 2 Type II | 🔄 Planned (Q1 2027) |
 | ISO 27001 | 🔄 Planned (2027) |
 | HIPAA | ❌ Not pursued (RecruitProof does not handle PHI) |

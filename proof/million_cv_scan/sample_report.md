@@ -109,6 +109,8 @@ team. Recruiters rated each candidate on a 1–5 scale (5 = would interview).
 
 **8 of 10 recruiters said RecruitProof surfaced at least 1 candidate they had not previously considered.**
 
+*Note: This is a projected outcome based on the engine's semantic + skill matching capabilities. No recruiters have yet reviewed RecruitProof output on real customer data. The pilot is designed to validate this.*
+
 ### Hidden candidates surfaced
 
 RecruitProof flagged 47 candidates across the 3 searches that were not in the

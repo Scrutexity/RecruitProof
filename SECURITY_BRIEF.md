@@ -38,7 +38,7 @@ layer, not an ATS replacement. Encore remains your system of record.
 
 ## Pilot-specific guarantees (Option A)
 
-- Your data is processed in an isolated VPC, your data only
+- Your data is processed locally (Docker container on my machine, or your machine via Option B)
 - Files are deleted within 24 hours of delivery, deletion certificate provided
 - We never train models on your data
 - We never share your data with any third party
@@ -54,9 +54,9 @@ layer, not an ATS replacement. Encore remains your system of record.
 
 | Framework | Status |
 |---|---|
-| GDPR | ✅ Compliant |
+| GDPR | ✅ Architecture is GDPR-compatible (local-first, right to erasure, data portability). Formal compliance review not yet completed. |
 | CCPA | ✅ Compliant |
-| SOC 2 Type I | 🔄 Q3 2026 |
+| SOC 2 Type I | 🔄 Planned (not yet engaged) |
 | SOC 2 Type II | 🔄 Q1 2027 |
 | ISO 27001 | 🔄 2027 |
 
