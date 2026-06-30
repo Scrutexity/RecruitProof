@@ -153,7 +153,7 @@ def run_pilot(input_zip: Path, jd_file: Path, output_dir: Path, auto_delete: boo
 
         _stream_subprocess(
             [sys.executable, "search.py",
-             "--jd-file", str(jd_file),
+             "--jd", str(jd_file),
              "--top", "50",
              "--index", str(index_dir),
              "--json", str(search_out),
