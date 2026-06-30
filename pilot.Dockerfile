@@ -21,17 +21,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/* \
     && useradd -m -u 1000 recruitproof
 
-# Python deps
+# Pre-cache the embedding model so first run is fast on air-gapped machines
+# ENV must be set BEFORE the RUN that caches, or the model goes to wrong path
+ENV HF_HOME=/data/.hf_cache
+RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')"
+
+# Python deps — fpdf2 is pinned for reproducible air-gapped builds
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt \
     && pip install --no-cache-dir \
-        fpdf2 \
+        fpdf2==2.8.2 \
         PyPDF2==3.0.0 \
-        python-docx==1.1.0 \
-        reportlab==4.4.9
-
-# Pre-cache the embedding model so first run is fast
-RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')"
+        python-docx==1.1.0
 
 # Copy the source code
 COPY --chown=recruitproof:recruitproof . /app
@@ -39,10 +40,9 @@ COPY --chown=recruitproof:recruitproof . /app
 RUN mkdir -p /data /input /output && chown -R recruitproof:recruitproof /app /data /input /output
 
 USER recruitproof
+ENV RECRUITPROOF_DATA_DIR=/data
 
 ENV PYTHONUNBUFFERED=1 \
-    PYTHONDONTWRITEBYTECODE=1 \
-    RECRUITPROOF_DATA_DIR=/data \
-    HF_HOME=/data/.hf_cache
+    PYTHONDONTWRITEBYTECODE=1
 
 ENTRYPOINT ["python", "pilot_executor.py"]

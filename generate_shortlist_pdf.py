@@ -114,7 +114,7 @@ def _build_evidence(cand: Dict) -> Dict[str, str]:
 
 
 def _build_concerns(cand: Dict) -> str:
-    """Derive potential concerns from missing skills and other gaps."""
+    """Derive potential concerns from missing skills, signal variance, and other gaps."""
     parts = []
     missing = cand.get("missing_skills", [])
     if missing:
@@ -122,6 +122,23 @@ def _build_concerns(cand: Dict) -> str:
     score = _normalize_score(cand.get("score_10", 0))
     if score < 0.5:
         parts.append("Overall fit below threshold - manual review recommended")
+
+    # Flag signal variance: any individual signal >30pp below the overall score
+    signals = cand.get("signals", {})
+    if signals:
+        signal_vals = {}
+        for key in SIGNAL_LABELS:
+            val = signals.get(key, 0.0)
+            if isinstance(val, (int, float)):
+                signal_vals[key] = min(val, 1.0) if val <= 1 else min(val / 10.0, 1.0)
+        if signal_vals:
+            avg = sum(signal_vals.values()) / len(signal_vals)
+            for key, val in signal_vals.items():
+                if avg - val > 0.30:
+                    label = SIGNAL_LABELS.get(key, key)
+                    parts.append("%s significantly below average (%d%% vs %d%%)" % (
+                        label, int(val * 100), int(avg * 100)))
+
     return " | ".join(parts) if parts else ""
 
 
@@ -314,11 +331,12 @@ def create_shortlist_pdf(
         ("Explainable Scoring",
          "Every candidate score is the weighted sum of five orthogonal signals. "
          "Each signal is traceable to specific resume content - no black boxes."),
-        ("Raw Data Deleted", "If --auto-delete was enabled, all raw resume files have been "
-         "permanently wiped. A cryptographic deletion receipt (SHA-256 hashed) "
-         "accompanies this report."),
-        ("Audit Trail", "Every step of this pipeline was logged to a tamper-evident audit ledger "
-         "(hash-chained JSONL). The full log is available on request."),
+        ("Raw Data Deleted", "If --auto-delete was enabled, all raw resume files, derived "
+         "search indexes, and structured candidate data have been permanently wiped. "
+         "A cryptographic deletion receipt (SHA-256 hashed) accompanies this report."),
+        ("Audit Trail", "Every step of this pipeline was logged with a tamper-evident hash chain. "
+         "Each log entry includes the SHA-256 hash of the previous line — editing any entry "
+         "breaks the chain. The full log is available on request."),
     ]
 
     for title, desc in guarantees:
