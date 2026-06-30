@@ -386,15 +386,19 @@ async def explain_candidate(candidate_id: str, jd: str = Query(..., description=
         raise HTTPException(status_code=404, detail=f"Candidate {candidate_id} not found")
     cand = lookup[candidate_id]
     parsed_jd = parse_jd(jd)
-    # Run the ranker directly with the candidate
     ranker = MultiSignalRanker(parsed_jd)
-    # Use a placeholder sim if the candidate isn't in the index
-    sim = 0.5
+    # Compute the actual cosine similarity for this candidate against the JD.
+    # FIX: previous code used the candidate's positional index to look up a
+    # rank-ordered search results array — that's wrong. search() returns
+    # results sorted by similarity (best first), not aligned to the side table.
+    # The correct approach: embed both, compute cosine sim directly.
+    sim = 0.5  # fallback if candidate not in index
     if STATE.index is not None and candidate_id in STATE.index.candidate_ids:
-        idx = STATE.index.candidate_ids.index(candidate_id)
         jd_vec = STATE.embedder.encode_one(jd, is_query=True)
-        sims, _ = STATE.index.search(jd_vec, top_k=len(STATE.index.candidate_ids))
-        sim = float(sims[idx]) if idx < len(sims) else 0.5
+        # Search the full index and build a {candidate_id: similarity} map
+        sims, idxs = STATE.index.search(jd_vec, top_k=len(STATE.index.candidate_ids))
+        sim_by_id = {STATE.index.candidate_ids[i]: float(s) for s, i in zip(sims, idxs) if i >= 0}
+        sim = sim_by_id.get(candidate_id, 0.5)
     cs = ranker.score(cand, sim)
     cs.reasoning = generate_reasoning(cs, cand, parsed_jd, use_llm=False, llm_client=None)
     STATE.audit("explain_candidate", candidate_id, user=_api_key)

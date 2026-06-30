@@ -1,6 +1,6 @@
 # RecruitProof Pilot — One-Pager
 
-**For:** Rudy Mawer, CEO
+**For:** the prospect, CEO
 **From:** Scrutexity
 **Re:** 24-hour proof scan of your Encore resume database
 

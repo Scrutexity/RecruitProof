@@ -246,9 +246,11 @@ def ingest(zip_path: str, output_dir: str, limit: Optional[int] = None) -> Dict:
             try:
                 with zf.open(member) as f:
                     content = f.read()
-                # Write to a temp file so the extractor can open it by path
-                tmp_path = f"/tmp/rp_ingest_{i}{ext}"
-                with open(tmp_path, "wb") as tf:
+                # Write to a temp file so the extractor can open it by path.
+                # Use tempfile for safe cleanup on exception (fixes disk leak bug).
+                import tempfile
+                tmp_fd, tmp_path = tempfile.mkstemp(suffix=ext, prefix="rp_ingest_")
+                with os.fdopen(tmp_fd, "wb") as tf:
                     tf.write(content)
             except Exception as e:
                 failed.append({"file": member, "reason": f"read failed: {e}"})
@@ -256,10 +258,9 @@ def ingest(zip_path: str, output_dir: str, limit: Optional[int] = None) -> Dict:
                 stats["failed_breakdown"]["read_failed"] = stats["failed_breakdown"].get("read_failed", 0) + 1
                 continue
 
-            # Extract text
+            # Extract text — always clean up the temp file (try/finally fixes disk leak)
             try:
                 text, confidence = EXTRACTORS[ext](tmp_path)
-                os.unlink(tmp_path)
                 if not text or len(text) < 50:
                     raise RuntimeError("empty or too-short text")
             except Exception as e:
@@ -272,6 +273,12 @@ def ingest(zip_path: str, output_dir: str, limit: Optional[int] = None) -> Dict:
                 stats["files_failed"] += 1
                 stats["failed_breakdown"][cat] = stats["failed_breakdown"].get(cat, 0) + 1
                 continue
+            finally:
+                # Always clean up the temp file, even on success or exception
+                try:
+                    os.unlink(tmp_path)
+                except OSError:
+                    pass
 
             # Dedup: content hash first (catches re-uploads of same file)
             chash = content_hash(text)

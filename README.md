@@ -2,7 +2,11 @@
 
 ## Enterprise Recruiting Infrastructure
 
-**Replace your recruiting software — not your recruiting process.**
+**Augment Encore — don't replace it.**
+
+RecruitProof adds a local-first intelligence layer over your existing resume
+archive. No ATS replacement. No integration required. Just export a ZIP of
+PDFs and DOCXs, and RecruitProof surfaces candidates your keyword search missed.
 
 ---
 
@@ -165,7 +169,7 @@ and sample report.
 | [README.md](README.md) | CEO / CFO | 5 questions, sales-first |
 | [BUSINESS.md](BUSINESS.md) | CFO | TCO, ROI, 5-year savings |
 | [PILOT.md](PILOT.md) | CEO | Risk-free pilot offer |
-| [RUDY_PILOT_ONE_PAGER.md](RUDY_PILOT_ONE_PAGER.md) | CEO | Single-page exec summary |
+| [PILOT_ONE_PAGER.md](PILOT_ONE_PAGER.md) | CEO | Single-page exec summary |
 | [MIGRATION_CENTER.md](MIGRATION_CENTER.md) | CTO / Ops | 6-phase zero-risk migration |
 | [ENCORE_MIGRATION.md](ENCORE_MIGRATION.md) | CTO / Ops | Encore-specific migration |
 | [DEPLOYMENT.md](DEPLOYMENT.md) | DevOps | 15-min setup guide |

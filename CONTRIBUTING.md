@@ -84,7 +84,10 @@ chmod +x .git/hooks/pre-commit
 6. **Sign the CLA** (Contributor License Agreement) on your first PR. It's
    a one-click electronic signature that confirms you have the right to
    contribute your code under the MIT license. We promise never to use it
-   to relicense your work — see [CONTRIBUTOR_LICENSE_AGREEMENT.md](CONTRIBUTOR_LICENSE_AGREEMENT.md).
+   to relicense your work — we don't have one. Your contributions are licensed
+   under MIT, same as the rest of the project. Just sign the one-click electronic
+   confirmation on your first PR (a checkbox confirming you have the right to
+   contribute your code under the MIT license).
 7. **Pass CI.** All checks must be green before merge. We use GitHub Actions:
    - `lint` (black, isort, flake8, mypy)
    - `test` (pytest on Python 3.10, 3.11, 3.12)

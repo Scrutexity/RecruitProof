@@ -1,0 +1,48 @@
+# RecruitProof — Pilot Mode Docker Compose
+# ============================================================================
+# Locked-down configuration for running the pilot on Rudy's infrastructure.
+#
+# Key differences from docker-compose.yml:
+#   - network_mode: "none" — no internet access, no outbound calls
+#   - Read-only import mount — can't accidentally modify the export
+#   - No secrets env file — pilot runs without API keys
+#   - CPU/memory limited to prevent resource exhaustion
+#
+# Usage:
+#   docker-compose -f docker-compose.pilot.yml run --rm \
+#     recruitproof-pilot python pilot_run.py \
+#     --zip /imports/encore_export.zip \
+#     --jd /imports/job_description.txt \
+#     --out /runs/pilot_001 \
+#     --top 50 --delete-raw
+
+version: "3.9"
+
+services:
+  recruitproof-pilot:
+    build: .
+    container_name: recruitproof-pilot
+    network_mode: "none"  # No internet access — fully air-gapped
+    volumes:
+      # Read-only mount of the Encore export (can't modify the source)
+      - ./imports:/imports:ro
+      # Read-write mount for output (evidence packet)
+      - ./runs:/runs
+      # Pre-cached model (optional — if not present, container will fail
+      # without network. For air-gapped pilot, pre-build the image with
+      # the model cached via `make docker-build-offline`)
+      - ./.hf_cache:/data/.hf_cache:ro
+    environment:
+      - RECRUITPROOF_MODE=pilot
+      - RECRUITPROOF_DATA_DIR=/data
+      - HF_HOME=/data/.hf_cache
+    deploy:
+      resources:
+        limits:
+          cpus: "8"
+          memory: 32G
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
