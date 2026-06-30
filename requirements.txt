@@ -19,3 +19,6 @@ orjson>=3.10                 # fast JSONL parsing
 
 # ---- Optional: LLM reasoning layer (only used if OPENAI_API_KEY is set) ----
 openai>=1.40                 # 1-sentence reasoning for the #1 candidate
+
+# ---- Pilot executor ----
+fpdf2>=2.8.0                 # Candidate shortlist PDF generation (pilot_executor.py)

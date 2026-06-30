@@ -1,41 +1,37 @@
-# RecruitProof — Pilot Mode Docker Compose
-# ============================================================================
-# Locked-down configuration for running the pilot on the customer's infrastructure.
-#
-# Key differences from docker-compose.yml:
-#   - network_mode: "none" — no internet access, no outbound calls
-#   - Read-only import mount — can't accidentally modify the export
-#   - No secrets env file — pilot runs without API keys
-#   - CPU/memory limited to prevent resource exhaustion
+# RecruitProof — Rudy Pilot One-Click Executor
+# ==============================================
+# Mount your Encore ZIP + JD, run, get shortlist PDF + deletion receipt.
+# Fully air-gapped — no network access, zero data leaves your machine.
 #
 # Usage:
-#   docker-compose -f docker-compose.pilot.yml run --rm \
-#     recruitproof-pilot python pilot_run.py \
-#     --zip /imports/encore_export.zip \
-#     --jd /imports/job_description.txt \
-#     --out /runs/pilot_001 \
-#     --top 50 --delete-raw
+#   mkdir -p input output
+#   cp /path/to/encore_export.zip input/resumes.zip
+#   cp /path/to/job_description.txt input/job.txt
+#   docker compose -f docker-compose.pilot.yml up
+#   # Shortlist PDF appears in ./output/shortlist.pdf
+#   # Deletion receipt in ./output/deletion_receipt.json (if --auto-delete)
 
-version: "3.9"
+version: "3.8"
 
 services:
-  recruitproof-pilot:
-    build: .
+  pilot:
+    build:
+      context: .
+      dockerfile: pilot.Dockerfile
     container_name: recruitproof-pilot
-    network_mode: "none"  # No internet access — fully air-gapped
+    network_mode: "none"           # Fully air-gapped
     volumes:
-      # Read-only mount of the Encore export (can't modify the source)
-      - ./imports:/imports:ro
-      # Read-write mount for output (evidence packet)
-      - ./runs:/runs
-      # Pre-cached model (optional — if not present, container will fail
-      # without network. For air-gapped pilot, pre-build the image with
-      # the model cached via `make docker-build-offline`)
-      - ./.hf_cache:/data/.hf_cache:ro
+      - ./input:/input:ro          # Mount ZIP + JD here (read-only)
+      - ./output:/output           # Shortlist PDF + receipt appear here
+      - ./data:/data               # HF cache + temp data
     environment:
-      - RECRUITPROOF_MODE=pilot
-      - RECRUITPROOF_DATA_DIR=/data
       - HF_HOME=/data/.hf_cache
+      - RECRUITPROOF_DATA_DIR=/data
+    command: >
+      --input-zip /input/resumes.zip
+      --jd-file /input/job.txt
+      --output-dir /output
+      --auto-delete
     deploy:
       resources:
         limits:
