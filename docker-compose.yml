@@ -1,0 +1,66 @@
+# RecruitProof — Production Docker Compose
+# ----------------------------------------------------------------------------
+# 15-minute deployment. See DEPLOYMENT.md for the full walkthrough.
+#
+# Usage:
+#   cp .env.example .env  &&  edit .env
+#   docker-compose up -d
+#   open http://localhost:8000
+#
+# Health check:    curl http://localhost:8000/health
+# View logs:       docker-compose logs -f recruitproof
+# Stop:            docker-compose down
+# Upgrade:         git pull && docker-compose pull && docker-compose up -d
+
+version: "3.9"
+
+services:
+  recruitproof:
+    image: scrutexity/recruitproof:0.3.0
+    container_name: recruitproof
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      # Persistent data: candidates, FAISS index, BM25 corpus, backups, HF cache
+      - ./data:/data
+      # Environment file (read-only inside the container)
+      - ./.env:/app/.env:ro
+    environment:
+      - RECRUITPROOF_DATA_DIR=/data
+      - HF_HOME=/data/.hf_cache
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    deploy:
+      resources:
+        limits:
+          cpus: "16"
+          memory: 60G
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "5"
+
+  # Optional: Caddy reverse proxy for TLS termination
+  # Uncomment to expose RecruitProof over HTTPS with auto-renewing certs
+  # caddy:
+  #   image: caddy:2
+  #   restart: unless-stopped
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - ./Caddyfile:/etc/caddy/Caddyfile:ro
+  #     - caddy_data:/data
+  #     - caddy_config:/config
+  #   depends_on:
+  #     - recruitproof
+
+# volumes:
+#   caddy_data:
+#   caddy_config:

@@ -84,6 +84,37 @@ See [DEPLOYMENT.md](DEPLOYMENT.md).
 
 ---
 
+## Quick Start — one command
+
+```bash
+git clone https://github.com/Scrutexity/RecruitProof && \
+  cd RecruitProof && \
+  make demo-data && \
+  make dev
+```
+
+That's it. In ~3 minutes you'll have:
+
+1. 10,000 synthetic resumes generated
+2. A hybrid FAISS + BM25 index built
+3. The FastAPI server running at http://localhost:8000
+4. Open http://localhost:8000/docs for the interactive API explorer
+
+**Other one-command operations** (see `make help` for the full list):
+
+```bash
+make search          # run a sample search against the index
+make benchmark       # 20-iteration p50/p95 latency benchmark
+make test            # run the 32-test unit suite
+make demo-pdfs       # regenerate the 3 sample PDFs in demo/
+make docker-run      # run via docker-compose (production-style)
+```
+
+**Requirements:** Python 3.10+, 8 GB RAM, 10 GB disk for the demo dataset.
+For 500K+ resumes: 16 vCPU, 64 GB RAM, 200 GB NVMe (see [PERFORMANCE.md](PERFORMANCE.md)).
+
+---
+
 ## Proof target
 
 RecruitProof is designed to scan **500,000–1,000,000 exported Encore resumes**

@@ -4,6 +4,17 @@ __pycache__/
 *.pyo
 *.pyd
 .Python
+.pytest_cache/
+.mypy_cache/
+
+# Virtualenv
+.venv/
+venv/
+
+# Secrets — NEVER commit
+.env
+.env.local
+.env.*.local
 
 # ML model cache (250MB+ — let users download on first run)
 .hf_cache/
@@ -17,8 +28,18 @@ runs/
 # Large test datasets (regenerate via generate_synthetic_data.py)
 data/candidates.jsonl
 
+# Demo data — keep the 1,000-candidate sample under demo/demo_data/ tracked,
+# but ignore large ad-hoc datasets at the root.
+!demo/demo_data/candidates.jsonl
+
+# Backups
+/data/backups/
+*.tar.gz.enc
+
 # Editor / OS
 .vscode/
 .idea/
 .DS_Store
 *.swp
+*.swo
+*~
