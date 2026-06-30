@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# ML model cache (250MB+ — let users download on first run)
+.hf_cache/
+*.bin
+
+# Built indexes (regenerate via precompute.py)
+output/
+output_ivf/
+runs/
+
+# Large test datasets (regenerate via generate_synthetic_data.py)
+data/candidates.jsonl
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+*.swp
