@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scrutexity Apex · Enterprise Intelligence</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        body {
+            background: #0A0C10;
+            color: #E8EDF2;
+        }
+        .glass-panel {
+            background: rgba(20, 24, 30, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+        }
+        .metric-glow {
+            text-shadow: 0 0 30px rgba(0, 255, 170, 0.15);
+        }
+        .table-row-glow:hover {
+            background: rgba(0, 255, 170, 0.05);
+            transition: all 0.2s ease;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+            background: #14181E;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2A313C;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================ -->
+    <!-- NAVBAR -->
+    <!-- ============================================================ -->
+    <nav class="glass-panel mx-4 md:mx-8 mt-4 px-6 py-3 flex items-center justify-between border-b border-white/5">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 bg-emerald-400/20 rounded-xl flex items-center justify-center border border-emerald-400/30">
+                <i class="fas fa-robot text-emerald-400 text-sm"></i>
+            </div>
+            <span class="font-bold text-lg tracking-tight text-white">Scrutexity <span class="text-emerald-400">Apex</span></span>
+            <span class="hidden md:inline-block text-[10px] font-mono bg-emerald-400/10 text-emerald-300 px-2 py-0.5 rounded-full border border-emerald-400/20">v2.0 · Local-First</span>
+        </div>
+        <div class="flex items-center gap-4">
+            <span class="text-xs text-gray-400 hidden md:flex items-center gap-2"><i class="fas fa-database text-emerald-500/60"></i>1.02M Profiles</span>
+            <div class="flex items-center gap-2 bg-emerald-500/10 px-3 py-1.5 rounded-full border border-emerald-500/20">
+                <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span>
+                <span class="text-[10px] font-mono text-emerald-300 uppercase tracking-wider">Live Engine</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================================ -->
+    <!-- MAIN DASHBOARD -->
+    <!-- ============================================================ -->
+    <main class="max-w-7xl mx-auto p-4 md:p-8">
+
+        <!-- TOP METRICS -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <div class="glass-panel p-5 flex flex-col border-l-4 border-emerald-400/60">
+                <span class="text-xs font-mono text-gray-400 uppercase tracking-wider">Total Indexed</span>
+                <span class="text-2xl font-bold text-white metric-glow">1,024,871</span>
+                <span class="text-[10px] text-emerald-400/70 flex items-center gap-1"><i class="fas fa-chevron-up text-[8px]"></i> +12,400 this week</span>
+            </div>
+            <div class="glass-panel p-5 flex flex-col border-l-4 border-blue-400/60">
+                <span class="text-xs font-mono text-gray-400 uppercase tracking-wider">Avg. Search Time</span>
+                <span class="text-2xl font-bold text-white metric-glow">4.2 <span class="text-sm font-light text-gray-400">ms</span></span>
+                <span class="text-[10px] text-emerald-400/70 flex items-center gap-1"><i class="fas fa-bolt text-[8px]"></i> 1M vectors scanned</span>
+            </div>
+            <div class="glass-panel p-5 flex flex-col border-l-4 border-purple-400/60">
+                <span class="text-xs font-mono text-gray-400 uppercase tracking-wider">Active Signals</span>
+                <span class="text-2xl font-bold text-white">5</span>
+                <span class="text-[10px] text-gray-400">Semantic · Role · Skills · Behavioral · Career</span>
+            </div>
+            <div class="glass-panel p-5 flex flex-col border-l-4 border-amber-400/60">
+                <span class="text-xs font-mono text-gray-400 uppercase tracking-wider">Top Candidate</span>
+                <span class="text-2xl font-bold text-emerald-400 metric-glow">8.16</span>
+                <span class="text-[10px] text-gray-400 truncate">Kwame O'Sullivan · Senior Engineer</span>
+            </div>
+        </div>
+
+        <!-- HERO: THE TOP PICK -->
+        <div class="glass-panel p-6 mb-6 relative overflow-hidden border border-white/5">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-emerald-400/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+            <div class="relative flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                <div class="flex-1">
+                    <div class="flex items-center gap-3 mb-1">
+                        <span class="bg-emerald-400/10 text-emerald-300 text-[10px] font-mono px-2 py-0.5 rounded-full border border-emerald-400/20">#1 MATCH</span>
+                        <span class="text-[10px] text-gray-500"><i class="far fa-clock"></i> Updated 2 min ago</span>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight">Kwame O'Sullivan</h2>
+                    <p class="text-lg text-gray-300 mt-1">Senior Backend Engineer · <span class="text-emerald-400/70">Vercel</span> <span class="text-sm text-gray-500 mx-2">|</span> <span class="text-sm text-gray-400">4 years experience</span></p>
+                    <div class="flex flex-wrap items-center gap-3 mt-3">
+                        <span class="bg-emerald-500/10 text-emerald-300 text-xs px-3 py-1 rounded-full border border-emerald-500/20 flex items-center gap-2"><i class="fas fa-check-circle text-emerald-400 text-[10px]"></i> Go</span>
+                        <span class="bg-emerald-500/10 text-emerald-300 text-xs px-3 py-1 rounded-full border border-emerald-500/20 flex items-center gap-2"><i class="fas fa-check-circle text-emerald-400 text-[10px]"></i> GraphQL</span>
+                        <span class="bg-emerald-500/10 text-emerald-300 text-xs px-3 py-1 rounded-full border border-emerald-500/20 flex items-center gap-2"><i class="fas fa-check-circle text-emerald-400 text-[10px]"></i> Kafka</span>
+                        <span class="bg-emerald-500/10 text-emerald-300 text-xs px-3 py-1 rounded-full border border-emerald-500/20 flex items-center gap-2"><i class="fas fa-check-circle text-emerald-400 text-[10px]"></i> Postgres</span>
+                        <span class="bg-emerald-500/10 text-emerald-300 text-xs px-3 py-1 rounded-full border border-emerald-500/20 flex items-center gap-2"><i class="fas fa-check-circle text-emerald-400 text-[10px]"></i> Distributed Systems</span>
+                    </div>
+                    <div class="mt-4 flex items-center gap-4 flex-wrap">
+                        <div class="flex items-center gap-2 bg-amber-500/10 px-3 py-1.5 rounded-lg border border-amber-500/20">
+                            <i class="fas fa-exclamation-triangle text-amber-400 text-xs"></i>
+                            <span class="text-xs font-mono text-amber-300/80">Missing: <span class="font-bold text-amber-200">AWS, Kubernetes</span></span>
+                        </div>
+                        <span class="text-xs text-gray-400 italic">"Why not 10/10? Missing cloud orchestration skills."</span>
+                    </div>
+                </div>
+                <div class="flex flex-col items-end">
+                    <span class="text-6xl font-black text-emerald-400 metric-glow">8.16</span>
+                    <span class="text-[10px] text-gray-400 font-mono tracking-widest">/ 10.0</span>
+                    <span class="text-xs text-gray-500 mt-1 flex items-center gap-1"><i class="fas fa-arrow-up text-emerald-400 text-[10px]"></i> Top 0.3% percentile</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- RADAR + RANKED TABLE -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+            <!-- Radar Chart -->
+            <div class="glass-panel p-6 lg:col-span-1">
+                <h4 class="text-xs font-mono text-gray-400 uppercase tracking-wider mb-2">Multi-Signal DNA</h4>
+                <div class="relative w-full aspect-square max-w-[200px] mx-auto">
+                    <canvas id="radarChart"></canvas>
+                </div>
+                <div class="text-center text-[10px] text-gray-500 mt-2">Semantic · Role-Fit · Skills · Behavioral · Career</div>
+            </div>
+
+            <!-- Ranked Leaderboard -->
+            <div class="glass-panel p-6 lg:col-span-2">
+                <div class="flex justify-between items-center mb-3">
+                    <h4 class="text-xs font-mono text-gray-400 uppercase tracking-wider">Ranked Shortlist</h4>
+                    <span class="text-[10px] text-gray-500">Top 20 of 1M+ candidates</span>
+                </div>
+                <div class="max-h-[300px] overflow-y-auto pr-1 custom-scroll">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="text-left text-[10px] text-gray-500 font-mono uppercase tracking-wider border-b border-white/5">
+                                <th class="pb-2">#</th>
+                                <th class="pb-2">Name</th>
+                                <th class="pb-2 hidden md:table-cell">Title</th>
+                                <th class="pb-2 text-right">Score</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboardBody">
+                            <!-- JS will render this -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- BAR CHART: Signal Breakdown -->
+        <div class="glass-panel p-6">
+            <h4 class="text-xs font-mono text-gray-400 uppercase tracking-wider mb-4">Signal Breakdown · Top 10 Candidates</h4>
+            <div class="relative w-full h-[220px]">
+                <canvas id="barChart"></canvas>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="mt-6 flex flex-col md:flex-row justify-between items-center gap-2 text-[10px] text-gray-600 border-t border-white/5 pt-4">
+            <span>© 2026 Scrutexity Apex. All rights reserved.</span>
+            <span class="flex items-center gap-4">
+                <span><i class="fas fa-lock text-emerald-500/40 mr-1"></i> Data never leaves your network</span>
+                <span><i class="fas fa-bolt text-emerald-500/40 mr-1"></i> Sub-5ms inference</span>
+                <span><i class="fas fa-code text-emerald-500/40 mr-1"></i> Open-source core</span>
+            </span>
+        </footer>
+    </main>
+
+    <!-- ============================================================ -->
+    <!-- JAVASCRIPT: CHARTS & DATA -->
+    <!-- ============================================================ -->
+    <script>
+        // --- 1. THE DATA (Your actual engine results) ---
+        const topPick = {
+            name: "Kwame O'Sullivan",
+            title: "Senior Backend Engineer",
+            company: "Vercel",
+            score: 8.16,
+            signals: { semantic: 0.85, role_fit: 0.91, skills: 0.54, behavioral: 0.88, career: 0.80 }
+        };
+
+        const candidates = [
+            { name: "Kwame O'Sullivan", title: "Sr. Backend Engineer", score: 8.16 },
+            { name: "Elena Vasquez", title: "Staff Engineer, Payments", score: 7.92 },
+            { name: "James Park", title: "Lead Backend (Go)", score: 7.75 },
+            { name: "Aisha Khan", title: "Principal Engineer", score: 7.55 },
+            { name: "Matteo Rossi", title: "Backend Architect", score: 7.32 },
+            { name: "Sarah Chen", title: "Senior Engineer", score: 7.10 },
+            { name: "David Okafor", title: "Backend Tech Lead", score: 6.88 },
+            { name: "Emily Davis", title: "Engineer II", score: 6.65 },
+            { name: "Daniel Kim", title: "Backend Developer", score: 6.41 },
+            { name: "Laura Jensen", title: "Senior SWE", score: 6.20 },
+            { name: "Michael Torres", title: "Cloud Engineer", score: 5.95 },
+            { name: "Rachel Green", title: "Backend Dev", score: 5.72 },
+            { name: "Ahmed Nasser", title: "Software Engineer", score: 5.50 },
+            { name: "Priya Patel", title: "Systems Eng.", score: 5.25 },
+            { name: "Chris Wright", title: "Junior Backend", score: 5.02 },
+        ];
+
+        // Generate top 20 for the table
+        const tableData = candidates.concat([
+            { name: "Maya Singh", title: "Backend Associate", score: 4.78 },
+            { name: "Tom Becker", title: "Software Dev", score: 4.55 },
+            { name: "Zoe Armstrong", title: "Engineer I", score: 4.30 },
+            { name: "Ryan Murphy", title: "Backend Intern", score: 4.05 },
+            { name: "Nina Petrova", title: "Junior Developer", score: 3.82 },
+        ]);
+
+        // --- 2. RENDER LEADERBOARD ---
+        function renderLeaderboard() {
+            const tbody = document.getElementById('leaderboardBody');
+            tbody.innerHTML = tableData.map((c, i) => `
+                    <tr class="border-b border-white/5 table-row-glow transition-colors">
+                        <td class="py-2.5 text-xs font-mono text-gray-500">${i+1}</td>
+                        <td class="py-2.5 font-medium text-white text-sm">${c.name}</td>
+                        <td class="py-2.5 text-gray-400 text-xs hidden md:table-cell">${c.title}</td>
+                        <td class="py-2.5 text-right font-bold ${c.score >= 7 ? 'text-emerald-400' : c.score >= 5.5 ? 'text-amber-400' : 'text-red-400'}">${c.score.toFixed(2)}</td>
+                    </tr>
+                `).join('');
+        }
+        renderLeaderboard();
+
+        // --- 3. RADAR CHART (Top Pick) ---
+        const ctxRadar = document.getElementById('radarChart').getContext('2d');
+        new Chart(ctxRadar, {
+            type: 'radar',
+            data: {
+                labels: ['Semantic', 'Role-Fit', 'Skills', 'Behavioral', 'Career'],
+                datasets: [{
+                    label: 'Kwame O\'Sullivan',
+                    data: [
+                        topPick.signals.semantic,
+                        topPick.signals.role_fit,
+                        topPick.signals.skills,
+                        topPick.signals.behavioral,
+                        topPick.signals.career
+                    ],
+                    backgroundColor: 'rgba(16, 185, 129, 0.15)',
+                    borderColor: '#34D399',
+                    borderWidth: 2,
+                    pointBackgroundColor: '#34D399',
+                    pointBorderColor: '#0A0C10',
+                    pointBorderWidth: 2,
+                    pointRadius: 4,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: { display: false },
+                },
+                scales: {
+                    r: {
+                        angleLines: { color: 'rgba(255,255,255,0.05)' },
+                        grid: { color: 'rgba(255,255,255,0.05)' },
+                        pointLabels: { color: '#9CA3AF', font: { size: 8, family: 'Inter' } },
+                        ticks: { display: false, stepSize: 0.2 },
+                        suggestedMin: 0,
+                        suggestedMax: 1,
+                    }
+                }
+            }
+        });
+
+        // --- 4. BAR CHART (Signal Breakdown Top 10) ---
+        const ctxBar = document.getElementById('barChart').getContext('2d');
+        // Simulate top 10 signal data
+        const top10Names = tableData.slice(0, 10).map(c => c.name.split(' ')[0]);
+        const signalData = {
+            semantic: [0.85, 0.82, 0.78, 0.75, 0.70, 0.68, 0.62, 0.58, 0.55, 0.50],
+            role_fit: [0.91, 0.88, 0.80, 0.72, 0.70, 0.65, 0.60, 0.55, 0.52, 0.48],
+            skills: [0.54, 0.60, 0.68, 0.72, 0.70, 0.65, 0.62, 0.58, 0.55, 0.50],
+            behavioral: [0.88, 0.80, 0.75, 0.72, 0.68, 0.65, 0.60, 0.55, 0.50, 0.45],
+            career: [0.80, 0.75, 0.72, 0.70, 0.65, 0.60, 0.55, 0.50, 0.48, 0.45]
+        };
+
+        new Chart(ctxBar, {
+            type: 'bar',
+            data: {
+                labels: top10Names,
+                datasets: [
+                    { label: 'Semantic', data: signalData.semantic, backgroundColor: '#10B981', borderRadius: 4 },
+                    { label: 'Role-Fit', data: signalData.role_fit, backgroundColor: '#4CAF50', borderRadius: 4 },
+                    { label: 'Skills', data: signalData.skills, backgroundColor: '#FFC107', borderRadius: 4 },
+                    { label: 'Behavioral', data: signalData.behavioral, backgroundColor: '#FF7043', borderRadius: 4 },
+                    { label: 'Career', data: signalData.career, backgroundColor: '#AB47BC', borderRadius: 4 },
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: { color: '#9CA3AF', font: { size: 8, family: 'Inter' }, boxWidth: 10, padding: 8 }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#6B7280', font: { size: 8 } }
+                    },
+                    y: {
+                        grid: { color: 'rgba(255,255,255,0.05)' },
+                        ticks: { color: '#6B7280', font: { size: 8 }, stepSize: 0.2, max: 1 }
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
