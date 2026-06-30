@@ -149,7 +149,7 @@ from PDF/DOCX files without requiring direct ATS access.
 **Phase 1 proof does not replace Encore.** It creates a private searchable
 intelligence layer over exported CVs.
 
-For Rudy, the demo is:
+For the prospect, the demo is:
 
 > "Give me 1 zipped folder. I'll return 50 hidden candidates."
 

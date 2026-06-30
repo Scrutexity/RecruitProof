@@ -1,7 +1,7 @@
 # Data Handling Agreement — RecruitProof Pilot
 
-**Version:** 1.0
-**Date:** 2026-07-01
+**Version:** 1.0 (template — not yet executed)
+**Date:** [Effective Date — to be set upon execution]
 **Between:** Scrutexity ("Processor") and [Customer Name] ("Controller")
 
 ---
@@ -29,7 +29,7 @@ ranked shortlist and evidence packet.
 ## 3. Data Location
 
 **Option A — Processor-local:**
-- Data is processed on the Processor's local machine in [Processor's location].
+- Data is processed on the Processor's local machine in [Processor's jurisdiction — to be specified upon execution].
 - No data is uploaded to any cloud service.
 - No data is transmitted to any third party.
 - Raw files are deleted within 24 hours of pilot delivery.

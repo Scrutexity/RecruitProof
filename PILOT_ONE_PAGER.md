@@ -8,7 +8,7 @@
 
 ## The ask
 
-Send us a zipped folder of 5,000–50,000 PDF/DOCX resumes exported from Encore,
+Send us a zipped folder of 500–1,000 PDF/DOCX resumes exported from Encore,
 plus 3 real job descriptions. We return a shortlist and ROI report in 24 hours.
 
 **Zero integration. Zero commitment. Zero risk.**
@@ -30,7 +30,7 @@ plus 3 real job descriptions. We return a shortlist and ROI report in 24 hours.
 
 Four metrics that matter to a CEO:
 
-| Metric | Target | Why Rudy cares |
+| Metric | Target | Why the prospect cares |
 |---|---|---|
 | Ingestion rate | 500K files in < 60 min | "Can it handle my database?" |
 | Extraction success | ≥ 97% of PDFs/DOCXs parsed | "Will my files work?" |
@@ -75,7 +75,7 @@ See [BUSINESS.md](BUSINESS.md) for the full TCO analysis.
 
 Reply to this email with:
 
-1. ✅ A zip of 5,000–50,000 Encore resumes (Dropbox / Drive link is fine)
+1. ✅ A zip of 500–1,000 Encore resumes (Dropbox / Drive link is fine)
 2. ✅ 3 job descriptions you're currently sourcing for
 3. ✅ "Go"
 

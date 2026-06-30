@@ -141,7 +141,7 @@ The `agents.py` module has a `LocalLLMClient` that auto-detects Ollama at `local
 
 ---
 
-## Summary: What You Can Honestly Promise Rudy
+## Summary: What You Can Honestly Promise the Prospect
 
 ### ✅ Can promise with full integrity:
 - "RecruitProof runs locally. Your data never leaves your machine."
@@ -176,4 +176,4 @@ The `agents.py` module has a `LocalLLMClient` that auto-detects Ollama at `local
 3. **Update SECURITY_BRIEF.md** — change "SOC 2 in progress" → "SOC 2 planned".
 4. **Update AUDIT_AND_COMPLIANCE.md** — change "GDPR ✅ Compliant" → "GDPR-compatible architecture".
 5. **Update BUSINESS.md** — frame savings as "projected based on documented assumptions".
-6. **Run a real test on Rudy's data** — if he gives you 100 resumes, run `ingest_encore.py` + `precompute.py` + `search.py` on them and show the real output. That's the only proof that matters.
+6. **Run a real test on the prospect's data** — if they give you 100 resumes, run `ingest_encore.py` + `precompute.py` + `search.py` on them and show the real output. That's the only proof that matters.

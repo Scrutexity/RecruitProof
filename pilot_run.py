@@ -4,7 +4,7 @@ pilot_run.py — One-ZIP Proof Runner
 ====================================
 
 The single command that turns an Encore ZIP export + a job description into
-a complete evidence packet. This is the Rudy pilot deliverable generator.
+a complete evidence packet. This is the pilot deliverable generator.
 
 Usage:
     python pilot_run.py \\
@@ -21,9 +21,9 @@ Output (in --out directory):
     failed_files.csv           — per-file failure reasons
     duplicates.csv             — detected duplicate pairs
     candidates.jsonl           — all parsed candidates (for precompute.py)
-    shortlist_top50.csv        — ranked shortlist (spreadsheet-importable)
-    shortlist_top50.pdf        — ranked shortlist (executive PDF)
-    candidate_explanations.json — per-candidate 5-signal breakdown + reasoning
+    shortlist_top{N}.csv       — ranked shortlist (spreadsheet-importable)
+    shortlist_top{N}.pdf       — ranked shortlist (executive PDF)
+    shortlist_top{N}.json      — per-candidate 5-signal breakdown + reasoning
     proof_report.pdf           — the 4-metric proof report
     deletion_receipt.pdf       — proof that raw files were deleted
     deletion_receipt.json      — SHA-256 hash manifest of deleted files

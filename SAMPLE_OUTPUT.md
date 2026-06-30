@@ -170,9 +170,9 @@ That's what makes the CEO approve a pilot.
 
 ### The "50 Hidden Candidates" deliverable
 
-When you send Rudy the pilot deliverable, this is what he receives — a
+When you send the prospect the pilot deliverable, this is what he receives — a
 one-page PDF (or CSV) listing the 50 highest-fit candidates that RecruitProof
-surfaced from his Encore archive that his team had NOT previously shortlisted.
+surfaced from their Encore archive that his team had NOT previously shortlisted.
 
 ```
 ═══════════════════════════════════════════════════════════════════════════════
@@ -237,6 +237,6 @@ recruitproof_pilot_deliverable.zip
 └── deletion_receipt.pdf          ← proof that raw files were deleted
 ```
 
-This is what Rudy holds in his hand. Every candidate is real (from his Encore
+This is what the prospect holds in their hand. Every candidate is real (from their Encore
 export). Every score is explainable. Every "NEW" status means his team hadn't
 previously found this person. That's the pilot deliverable.

@@ -1,4 +1,4 @@
-# RecruitProof Pilot — For Rudy
+# RecruitProof Pilot — For the Prospect
 
 ## The goal
 

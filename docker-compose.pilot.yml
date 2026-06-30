@@ -1,6 +1,6 @@
 # RecruitProof — Pilot Mode Docker Compose
 # ============================================================================
-# Locked-down configuration for running the pilot on Rudy's infrastructure.
+# Locked-down configuration for running the pilot on the customer's infrastructure.
 #
 # Key differences from docker-compose.yml:
 #   - network_mode: "none" — no internet access, no outbound calls
