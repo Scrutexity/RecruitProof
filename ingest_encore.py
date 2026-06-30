@@ -284,6 +284,22 @@ def ingest(zip_path: str, output_dir: str, limit: Optional[int] = None) -> Dict:
             meta = extract_metadata(text, member)
             meta["extraction_confidence"] = round(confidence, 2)
 
+            # Enrich: extract structured fields (title, company, YoE, location, etc.)
+            # from the raw resume text. This closes the gap between raw text
+            # extraction and the structured fields the ranker needs.
+            try:
+                from resume_enricher import enrich_candidate
+                enriched = enrich_candidate(text)
+            except Exception as enrich_err:
+                # If enrichment fails, fall back to empty fields (don't kill the ingest)
+                enriched = {
+                    "current_title": "", "current_company": "", "years_experience": None,
+                    "location": "", "current_tenure_years": None, "title_progressed": False,
+                    "previous_companies": [], "extraction_confidence": 0.0,
+                }
+                # Log but continue
+                pass
+
             # Dedup: email + name + phone
             dkey = dedup_key(meta)
             if dkey and dkey in seen_dedup_keys:
@@ -298,17 +314,21 @@ def ingest(zip_path: str, output_dir: str, limit: Optional[int] = None) -> Dict:
                 "name": meta["name"],
                 "email": meta["email"],
                 "phone": meta["phone"],
-                "current_title": "",  # not reliably extractable; left for LLM enrichment
-                "current_company": "",
-                "location": "",
-                "years_experience": None,
+                "current_title": enriched["current_title"],
+                "current_company": enriched["current_company"],
+                "location": enriched["location"],
+                "years_experience": enriched["years_experience"],
+                "current_tenure_years": enriched["current_tenure_years"],
+                "title_progressed": enriched["title_progressed"],
+                "previous_companies": enriched["previous_companies"],
                 "skills": meta["skills"],
                 "summary": text[:2000],  # truncate to keep JSONL manageable
                 "resume_text": text,
                 "source_file": member,
                 "source_hash": chash,
                 "extraction_method": ext.lstrip("."),
-                "extraction_confidence": meta["extraction_confidence"],
+                "extraction_confidence": max(meta["extraction_confidence"], enriched["extraction_confidence"]),
+                "enrichment_confidence": enriched["extraction_confidence"],
                 "ingested_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
             }
             candidates.append(candidate)
